@@ -28,47 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.companiesComboBox = new System.Windows.Forms.ComboBox();
+            this.divisionsComboBox = new System.Windows.Forms.ComboBox();
+            this.projectsComboBox = new System.Windows.Forms.ComboBox();
+            this.departmentsComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // companiesComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.companiesComboBox.FormattingEnabled = true;
+            this.companiesComboBox.Location = new System.Drawing.Point(12, 29);
+            this.companiesComboBox.Name = "companiesComboBox";
+            this.companiesComboBox.Size = new System.Drawing.Size(160, 21);
+            this.companiesComboBox.TabIndex = 0;
+            this.companiesComboBox.SelectionChangeCommitted += new System.EventHandler(this.CompaniesComboBox_SelectionChangeCommitted);
             // 
-            // comboBox2
+            // divisionsComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(140, 28);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 1;
+            this.divisionsComboBox.FormattingEnabled = true;
+            this.divisionsComboBox.Location = new System.Drawing.Point(181, 29);
+            this.divisionsComboBox.Name = "divisionsComboBox";
+            this.divisionsComboBox.Size = new System.Drawing.Size(160, 21);
+            this.divisionsComboBox.TabIndex = 1;
+            this.divisionsComboBox.SelectionChangeCommitted += new System.EventHandler(this.DivisionsComboBox_SelectionChangeCommitted);
             // 
-            // comboBox3
+            // projectsComboBox
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(268, 29);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 2;
+            this.projectsComboBox.FormattingEnabled = true;
+            this.projectsComboBox.Location = new System.Drawing.Point(348, 29);
+            this.projectsComboBox.Name = "projectsComboBox";
+            this.projectsComboBox.Size = new System.Drawing.Size(160, 21);
+            this.projectsComboBox.TabIndex = 2;
+            this.projectsComboBox.SelectionChangeCommitted += new System.EventHandler(this.ProjectsComboBox_SelectionChangeCommitted);
             // 
-            // comboBox4
+            // departmentsComboBox
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(396, 29);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 3;
+            this.departmentsComboBox.FormattingEnabled = true;
+            this.departmentsComboBox.Location = new System.Drawing.Point(514, 29);
+            this.departmentsComboBox.Name = "departmentsComboBox";
+            this.departmentsComboBox.Size = new System.Drawing.Size(160, 21);
+            this.departmentsComboBox.TabIndex = 3;
             // 
             // label1
             // 
@@ -82,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(137, 9);
+            this.label2.Location = new System.Drawing.Point(178, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 5;
@@ -91,7 +94,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(268, 10);
+            this.label3.Location = new System.Drawing.Point(345, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 6;
@@ -100,7 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(396, 10);
+            this.label4.Location = new System.Drawing.Point(511, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 7;
@@ -115,12 +118,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.departmentsComboBox);
+            this.Controls.Add(this.projectsComboBox);
+            this.Controls.Add(this.divisionsComboBox);
+            this.Controls.Add(this.companiesComboBox);
             this.Name = "CompanyForm";
             this.Text = "CompanyApp";
+            this.Shown += new System.EventHandler(this.CompanyForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,10 +132,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox companiesComboBox;
+        private System.Windows.Forms.ComboBox divisionsComboBox;
+        private System.Windows.Forms.ComboBox projectsComboBox;
+        private System.Windows.Forms.ComboBox departmentsComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

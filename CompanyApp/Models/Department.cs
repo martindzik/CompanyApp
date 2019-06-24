@@ -12,5 +12,13 @@ namespace CompanyApp.Models
         public string Name { get; set; }
         public int ProjectId { get; set; }
         public int LeaderId { get; set; }
+
+        public Department(int id, string name, int projectId, int leaderId)
+        {
+            Id = id;
+            Name = name;
+            ProjectId = projectId;
+            LeaderId = leaderId;
+        }
     }
 }
