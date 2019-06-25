@@ -154,6 +154,7 @@
             this.deleteButton.TabIndex = 11;
             this.deleteButton.Text = "Vymazať";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // CompanyForm
             // 

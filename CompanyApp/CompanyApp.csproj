@@ -59,6 +59,7 @@
       <DependentUpon>CompanyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DbWrapper\Database.cs" />
+    <Compile Include="Dtos\DepartmentDto.cs" />
     <Compile Include="EditEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>

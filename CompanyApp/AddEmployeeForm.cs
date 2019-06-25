@@ -35,7 +35,7 @@ namespace CompanyApp
                 phoneTextBox.Text,
                 emailTextBox.Text,
                 positionTextBox.Text,
-                Convert.ToInt32(departmentTextBox.Text)
+                Convert.ToInt32(departmentComboBox.SelectedValue)
             );
 
             _database.AddEmployee(employee);
@@ -43,6 +43,19 @@ namespace CompanyApp
             this.Close();
         }
 
+        private void DepartmentComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void AddEmployeeForm_Load(object sender, EventArgs e)
+        {
+            var departmentDtos = _database.GetAllDepartments();
+
+            departmentComboBox.DataSource = departmentDtos;
+            departmentComboBox.DisplayMember = "Name";
+            departmentComboBox.ValueMember = "Id";
+            departmentComboBox.SelectedIndex = -1;
+        }
     }
 }

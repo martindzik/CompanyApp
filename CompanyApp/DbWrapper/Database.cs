@@ -1,4 +1,5 @@
-﻿using CompanyApp.Helpers;
+﻿using CompanyApp.Dtos;
+using CompanyApp.Helpers;
 using CompanyApp.Models;
 using System;
 using System.Collections.Generic;
@@ -239,6 +240,44 @@ namespace CompanyApp.DbWrapper
                 command.Parameters.AddWithValue("@Email", employee.Email);
                 command.Parameters.AddWithValue("@Position", employee.Position);
                 command.Parameters.AddWithValue("@DepartmentId", employee.DepartmentId);
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public IEnumerable<DepartmentDto> GetAllDepartments()
+        {
+            var departmentDtos = new List<DepartmentDto>();
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("SELECT Id, Name FROM Departments", connection);
+
+                command.Connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Int32.TryParse(reader["Id"].ToString(), out int id);
+                    var name = reader["Name"].ToString();
+
+                    var department = new DepartmentDto(id, name);
+
+                    departmentDtos.Add(department);
+                }
+            }
+
+            return departmentDtos;
+        }
+
+        public void DeleteEmployee(int id)
+        {
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("DELETE FROM Employees WHERE Id = @Id", connection);
+                command.Parameters.AddWithValue("@Id", id);
 
                 command.Connection.Open();
                 command.ExecuteNonQuery();

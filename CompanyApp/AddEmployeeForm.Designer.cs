@@ -41,9 +41,9 @@
             this.phoneTextBox = new System.Windows.Forms.TextBox();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.positionTextBox = new System.Windows.Forms.TextBox();
-            this.departmentTextBox = new System.Windows.Forms.TextBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.departmentComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -151,13 +151,6 @@
             this.positionTextBox.Size = new System.Drawing.Size(148, 20);
             this.positionTextBox.TabIndex = 12;
             // 
-            // departmentTextBox
-            // 
-            this.departmentTextBox.Location = new System.Drawing.Point(106, 187);
-            this.departmentTextBox.Name = "departmentTextBox";
-            this.departmentTextBox.Size = new System.Drawing.Size(148, 20);
-            this.departmentTextBox.TabIndex = 13;
-            // 
             // saveButton
             // 
             this.saveButton.Location = new System.Drawing.Point(187, 245);
@@ -178,14 +171,23 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
+            // departmentComboBox
+            // 
+            this.departmentComboBox.FormattingEnabled = true;
+            this.departmentComboBox.Location = new System.Drawing.Point(106, 187);
+            this.departmentComboBox.Name = "departmentComboBox";
+            this.departmentComboBox.Size = new System.Drawing.Size(148, 21);
+            this.departmentComboBox.TabIndex = 16;
+            this.departmentComboBox.SelectedIndexChanged += new System.EventHandler(this.DepartmentComboBox_SelectedIndexChanged);
+            // 
             // AddEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(276, 296);
+            this.Controls.Add(this.departmentComboBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.departmentTextBox);
             this.Controls.Add(this.positionTextBox);
             this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.phoneTextBox);
@@ -201,6 +203,7 @@
             this.Controls.Add(this.label1);
             this.Name = "AddEmployeeForm";
             this.Text = "AddEmployeeForm";
+            this.Load += new System.EventHandler(this.AddEmployeeForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,8 +224,8 @@
         private System.Windows.Forms.TextBox phoneTextBox;
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.TextBox positionTextBox;
-        private System.Windows.Forms.TextBox departmentTextBox;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.ComboBox departmentComboBox;
     }
 }

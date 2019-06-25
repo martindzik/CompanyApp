@@ -130,6 +130,7 @@ namespace CompanyApp
             employeesDataGridView.Columns["PhoneNumber"].Width = 120;
             employeesDataGridView.Columns["Email"].Width = 140;
             employeesDataGridView.Columns["Position"].Width = 160;
+            employeesDataGridView.Columns["Id"].Visible = false;
             employeesDataGridView.Columns["DepartmentId"].Visible = false;
         }
 
@@ -143,6 +144,15 @@ namespace CompanyApp
         private void ChildFormClosing(object sender, FormClosingEventArgs e)
         {
             ShowEmployees();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var row = employeesDataGridView.SelectedRows[0];
+            var employeeId = (int) row.Cells["Id"].Value;
+
+            _database.DeleteEmployee(employeeId);
+            employeesDataGridView.Rows.Remove(row);       
         }
     }
 }
