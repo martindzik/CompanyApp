@@ -47,7 +47,6 @@ namespace CompanyApp
             projectsComboBox.DataSource = null;
             departmentsComboBox.DataSource = null;
 
-            // display employees
             ShowEmployees();
         }
 
@@ -67,7 +66,6 @@ namespace CompanyApp
 
             departmentsComboBox.DataSource = null;
 
-            // display employees
             ShowEmployees();
         }
 
@@ -85,7 +83,6 @@ namespace CompanyApp
             departmentsComboBox.ValueMember = "Id";
             departmentsComboBox.SelectedIndex = -1;
 
-            // display employees
             ShowEmployees();
         }
 
@@ -115,6 +112,7 @@ namespace CompanyApp
 
             employeesDataGridView.DataSource = source;
             employeesDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             SetUpDataGridViewColumns();
         }
 
@@ -133,6 +131,18 @@ namespace CompanyApp
             employeesDataGridView.Columns["Email"].Width = 140;
             employeesDataGridView.Columns["Position"].Width = 160;
             employeesDataGridView.Columns["DepartmentId"].Visible = false;
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            AddEmployeeForm addEmployeeForm = new AddEmployeeForm();
+            addEmployeeForm.FormClosing += new FormClosingEventHandler(ChildFormClosing);
+            addEmployeeForm.Show();
+        }
+
+        private void ChildFormClosing(object sender, FormClosingEventArgs e)
+        {
+            ShowEmployees();
         }
     }
 }

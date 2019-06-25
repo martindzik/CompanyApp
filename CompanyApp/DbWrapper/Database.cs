@@ -81,7 +81,7 @@ namespace CompanyApp.DbWrapper
             using(var connection = new SqlConnection(ConnectionString))
             {
                 var command = new SqlCommand("SELECT * FROM Projects WHERE DivisionId = @DivisionId", connection);
-                command.Parameters.AddWithValue("DivisionId", divisionId);
+                command.Parameters.AddWithValue("@DivisionId", divisionId);
 
                 command.Connection.Open();
 
@@ -110,7 +110,7 @@ namespace CompanyApp.DbWrapper
             using (var connection = new SqlConnection(ConnectionString))
             {
                 var command = new SqlCommand("SELECT * FROM Departments WHERE ProjectId = @ProjectId", connection);
-                command.Parameters.AddWithValue("ProjectId", projectId);
+                command.Parameters.AddWithValue("@ProjectId", projectId);
 
                 command.Connection.Open();
 
@@ -185,16 +185,16 @@ namespace CompanyApp.DbWrapper
                 switch (choice)
                 {
                     case 1:
-                        command.Parameters.AddWithValue("DepartmentId", selectedDepartmentId);
+                        command.Parameters.AddWithValue("@DepartmentId", selectedDepartmentId);
                         break;
                     case 2:
-                        command.Parameters.AddWithValue("ProjectId", selectedProjectId);
+                        command.Parameters.AddWithValue("@ProjectId", selectedProjectId);
                         break;
                     case 3:
-                        command.Parameters.AddWithValue("DivisionId", selectedDivisionId);
+                        command.Parameters.AddWithValue("@DivisionId", selectedDivisionId);
                         break;
                     case 4:
-                        command.Parameters.AddWithValue("CompanyId", selectedCompanyId);
+                        command.Parameters.AddWithValue("@CompanyId", selectedCompanyId);
                         break;
                 }
 
@@ -220,6 +220,29 @@ namespace CompanyApp.DbWrapper
             }
 
             return employees;
+        }
+
+        public void AddEmployee(Employee employee)
+        {
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand(
+                    "INSERT INTO Employees " +
+                    "VALUES (@Title, @Name, @Surname, @PhoneNumber, @Email, @Position, @DepartmentId)",
+                    connection
+                    );
+
+                command.Parameters.AddWithValue("@Title", employee.Title);
+                command.Parameters.AddWithValue("@Name", employee.Name);
+                command.Parameters.AddWithValue("@Surname", employee.Surname);
+                command.Parameters.AddWithValue("@PhoneNumber", employee.PhoneNumber);
+                command.Parameters.AddWithValue("@Email", employee.Email);
+                command.Parameters.AddWithValue("@Position", employee.Position);
+                command.Parameters.AddWithValue("@DepartmentId", employee.DepartmentId);
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
