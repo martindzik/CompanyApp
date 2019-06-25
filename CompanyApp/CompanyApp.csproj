@@ -53,6 +53,7 @@
       <DependentUpon>CompanyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DbWrapper\Database.cs" />
+    <Compile Include="Helpers\Filter.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Division.cs" />

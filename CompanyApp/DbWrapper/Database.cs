@@ -1,4 +1,5 @@
-﻿using CompanyApp.Models;
+﻿using CompanyApp.Helpers;
+using CompanyApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -129,6 +130,96 @@ namespace CompanyApp.DbWrapper
             }
 
             return departments;
+        }
+
+        public IEnumerable<Employee> GetEmployees(Filter filter)
+        {
+            var employees = new List<Employee>();
+
+            var cmd = "";
+
+            var selectedCompanyId = filter.SelectedCompany;
+            var selectedDivisionId = filter.SelectedDivision;
+            var selectedProjectId = filter.SelectedProject;
+            var selectedDepartmentId = filter.SelectedDepartment;
+
+            var choice = 0;
+
+            if(selectedDepartmentId != null)
+            {
+                cmd = "SELECT * FROM Employees WHERE DepartmentId = @DepartmentId";
+                choice = 1;
+            }
+            else if(selectedProjectId != null)
+            {
+                cmd = "SELECT e.* FROM projects AS p " +
+                    "JOIN departments AS d ON p.Id = d.ProjectId " +
+                    "JOIN employees AS e ON d.Id = e.DepartmentId " +
+                    "WHERE p.Id = @ProjectId";
+                choice = 2;
+            }
+            else if(selectedDivisionId != null)
+            {
+                cmd = "SELECT e.* FROM divisions AS d " +
+                    "JOIN projects AS p ON d.Id = p.DivisionId " +
+                    "JOIN departments AS dep ON p.Id = dep.ProjectId " +
+                    "JOIN employees AS e ON dep.Id = e.DepartmentId " +
+                    "WHERE d.Id = @DivisionId";
+                choice = 3;
+            }
+            else if(selectedCompanyId != null)
+            {
+                cmd = "SELECT e.* FROM companies as c " +
+                    "JOIN divisions AS d ON c.Id = d.CompanyId " +
+                    "JOIN projects AS p ON d.Id = p.DivisionId " +
+                    "JOIN departments AS dep ON p.Id = dep.ProjectId " +
+                    "JOIN employees AS e ON dep.Id = e.DepartmentId " +
+                    "WHERE c.Id = @CompanyId";
+                choice = 4;
+            }
+
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand(cmd, connection);
+
+                switch (choice)
+                {
+                    case 1:
+                        command.Parameters.AddWithValue("DepartmentId", selectedDepartmentId);
+                        break;
+                    case 2:
+                        command.Parameters.AddWithValue("ProjectId", selectedProjectId);
+                        break;
+                    case 3:
+                        command.Parameters.AddWithValue("DivisionId", selectedDivisionId);
+                        break;
+                    case 4:
+                        command.Parameters.AddWithValue("CompanyId", selectedCompanyId);
+                        break;
+                }
+
+                command.Connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    Int32.TryParse(reader["Id"].ToString(), out int id);
+                    var title = reader["Title"].ToString();
+                    var name = reader["Name"].ToString();
+                    var surname = reader["Surname"].ToString();
+                    var phoneNumber = reader["PhoneNumber"].ToString();
+                    var email = reader["Email"].ToString();
+                    var position = reader["Position"].ToString();
+                    Int32.TryParse(reader["DepartmentId"].ToString(), out int departmendId);
+
+                    var employee = new Employee(id, title, name, surname, phoneNumber, email, position, departmendId);
+
+                    employees.Add(employee);
+                }
+            }
+
+            return employees;
         }
     }
 }
