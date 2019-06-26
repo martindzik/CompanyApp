@@ -17,6 +17,8 @@ namespace CompanyApp.Models
         public string Position { get; set; }
         public int DepartmentId { get; set; }
 
+        public Employee() { }
+
         public Employee(int id, string title, string name, string surname,
             string phoneNumber, string email, string position, int departmentId)
         {

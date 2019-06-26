@@ -468,14 +468,51 @@ namespace CompanyApp.DbWrapper
             return projectDtos;
         }
 
+        public EmployeeDto GetLeader(int leaderId)
+        {
+            int id = 0;
+            string name = "";
+            string surname = "";
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("SELECT Id, Name, Surname FROM Employees WHERE Id = @Id", connection);
+                command.Parameters.AddWithValue("@Id", leaderId);
+
+                command.Connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out id);
+                    name = reader["Name"].ToString().Trim();
+                    surname = reader["Surname"].ToString().Trim();
+                }
+            }
+
+            return new EmployeeDto(id, name, surname);
+        }
+
         public void DeleteEmployee(int id)
         {
             using(var connection = new SqlConnection(ConnectionString))
             {
-                var command = new SqlCommand("DELETE FROM Employees WHERE Id = @Id", connection);
-                command.Parameters.AddWithValue("@Id", id);
-
+                var command = new SqlCommand("UPDATE Departments SET LeaderId = NULL WHERE LeaderId = @LeaderId", connection);
+                command.Parameters.AddWithValue("@LeaderId", id);
                 command.Connection.Open();
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("UPDATE Divisions SET ManagerId = NULL WHERE ManagerId = @ManagerId", connection);
+                command.Parameters.AddWithValue("@ManagerId", id);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("UPDATE Companies SET DirectorId = NULL WHERE DirectorId = @DirectorId", connection);
+                command.Parameters.AddWithValue("@DirectorId", id);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand("DELETE FROM Employees WHERE Id = @Id", connection);
+                command.Parameters.AddWithValue("@Id", id);
                 command.ExecuteNonQuery();
             }
         }

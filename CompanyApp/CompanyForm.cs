@@ -38,6 +38,15 @@ namespace CompanyApp
             divisionsComboBox.ValueMember = "Id";
             divisionsComboBox.SelectedIndex = -1;
 
+            // veduci firmy
+            int companyId = (int) companiesComboBox.SelectedValue;
+            var comp = companies.First(c => c.Id == companyId);
+            int id = comp.DirectorId;
+
+            var leader = _database.GetLeader(id);
+
+            leaderLabel.Text = leader.Name;
+
             ShowEmployees();
         }
 
@@ -55,6 +64,13 @@ namespace CompanyApp
 
             projectsComboBox.DataSource = null;
             departmentsComboBox.DataSource = null;
+
+            // veduci firmy
+            int id = company.DirectorId;
+
+            var leader = _database.GetLeader(id);
+
+            leaderLabel.Text = leader.Name;
 
             ShowEmployees();
         }
@@ -75,6 +91,13 @@ namespace CompanyApp
 
             departmentsComboBox.DataSource = null;
 
+            // veduci divizie
+            int id = division.ManagerId;
+
+            var leader = _database.GetLeader(id);
+
+            leaderLabel.Text = leader.Name;
+
             ShowEmployees();
         }
 
@@ -92,6 +115,13 @@ namespace CompanyApp
             departmentsComboBox.ValueMember = "Id";
             departmentsComboBox.SelectedIndex = -1;
 
+            // veduci projektu
+            int id = project.LeaderId;
+
+            var leader = _database.GetLeader(id);
+
+            leaderLabel.Text = leader.Name;
+
             ShowEmployees();
         }
 
@@ -101,6 +131,8 @@ namespace CompanyApp
             var department = (Department)comboBox.SelectedItem;
 
             if (department == null) return;
+
+            // veduci oddelenia
 
             ShowEmployees();
         }
@@ -135,7 +167,7 @@ namespace CompanyApp
                 employeesDataGridView.CurrentCell.Selected = false;
             }
 
-            employeesDataGridView.Columns["Title"].Width = 50;
+            employeesDataGridView.Columns["Title"].Width = 40;
             employeesDataGridView.Columns["Name"].Width = 80;
             employeesDataGridView.Columns["Surname"].Width = 80;
             employeesDataGridView.Columns["PhoneNumber"].Width = 120;
