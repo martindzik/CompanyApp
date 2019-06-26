@@ -503,6 +503,11 @@ namespace CompanyApp.DbWrapper
                 command.Connection.Open();
                 command.ExecuteNonQuery();
 
+                command = new SqlCommand("UPDATE Projects SET LeaderId = NULL WHERE LeaderId = @LeaderId", connection);
+                command.Parameters.AddWithValue("@LeaderId", id);
+                command.ExecuteNonQuery();
+
+
                 command = new SqlCommand("UPDATE Divisions SET ManagerId = NULL WHERE ManagerId = @ManagerId", connection);
                 command.Parameters.AddWithValue("@ManagerId", id);
                 command.ExecuteNonQuery();
@@ -510,6 +515,7 @@ namespace CompanyApp.DbWrapper
                 command = new SqlCommand("UPDATE Companies SET DirectorId = NULL WHERE DirectorId = @DirectorId", connection);
                 command.Parameters.AddWithValue("@DirectorId", id);
                 command.ExecuteNonQuery();
+
 
                 command = new SqlCommand("DELETE FROM Employees WHERE Id = @Id", connection);
                 command.Parameters.AddWithValue("@Id", id);
