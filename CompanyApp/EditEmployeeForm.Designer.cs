@@ -30,7 +30,6 @@
         {
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.departmentTextBox = new System.Windows.Forms.TextBox();
             this.positionTextBox = new System.Windows.Forms.TextBox();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.phoneTextBox = new System.Windows.Forms.TextBox();
@@ -44,6 +43,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.departmentComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -54,6 +54,7 @@
             this.cancelButton.TabIndex = 31;
             this.cancelButton.Text = "Zrušiť";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // saveButton
             // 
@@ -63,13 +64,7 @@
             this.saveButton.TabIndex = 30;
             this.saveButton.Text = "Uložiť";
             this.saveButton.UseVisualStyleBackColor = true;
-            // 
-            // departmentTextBox
-            // 
-            this.departmentTextBox.Location = new System.Drawing.Point(109, 194);
-            this.departmentTextBox.Name = "departmentTextBox";
-            this.departmentTextBox.Size = new System.Drawing.Size(148, 20);
-            this.departmentTextBox.TabIndex = 29;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // positionTextBox
             // 
@@ -176,14 +171,22 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "Titul";
             // 
+            // departmentComboBox
+            // 
+            this.departmentComboBox.FormattingEnabled = true;
+            this.departmentComboBox.Location = new System.Drawing.Point(109, 194);
+            this.departmentComboBox.Name = "departmentComboBox";
+            this.departmentComboBox.Size = new System.Drawing.Size(148, 21);
+            this.departmentComboBox.TabIndex = 32;
+            // 
             // EditEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 295);
+            this.Controls.Add(this.departmentComboBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.departmentTextBox);
             this.Controls.Add(this.positionTextBox);
             this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.phoneTextBox);
@@ -199,6 +202,7 @@
             this.Controls.Add(this.label1);
             this.Name = "EditEmployeeForm";
             this.Text = "EditEmployeeForm";
+            this.Load += new System.EventHandler(this.EditEmployeeForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,7 +212,6 @@
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.TextBox departmentTextBox;
         private System.Windows.Forms.TextBox positionTextBox;
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.TextBox phoneTextBox;
@@ -222,5 +225,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox departmentComboBox;
     }
 }

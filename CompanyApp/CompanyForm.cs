@@ -29,7 +29,16 @@ namespace CompanyApp
             companiesComboBox.DataSource = companies;
             companiesComboBox.DisplayMember = "Name";
             companiesComboBox.ValueMember = "Id";
-            companiesComboBox.SelectedIndex = -1;
+            companiesComboBox.SelectedIndex = 0;
+
+            var divisions = _database.GetDivisions(companies.ElementAt(0).Id);
+
+            divisionsComboBox.DataSource = divisions.Count() > 0 ? divisions : null;
+            divisionsComboBox.DisplayMember = "Name";
+            divisionsComboBox.ValueMember = "Id";
+            divisionsComboBox.SelectedIndex = -1;
+
+            ShowEmployees();
         }
 
         private void CompaniesComboBox_SelectionChangeCommitted(object sender, EventArgs e)
@@ -107,22 +116,25 @@ namespace CompanyApp
 
             var employees = _database.GetEmployees(filter);
 
-            var bindingList = new BindingList<Employee>(employees.ToList());
-            var source = new BindingSource(bindingList, null);
+            if(employees != null)
+            {
+                var bindingList = new BindingList<Employee>(employees.ToList());
+                var source = new BindingSource(bindingList, null);
 
-            employeesDataGridView.DataSource = source;
-            employeesDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                employeesDataGridView.DataSource = source;
+                employeesDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            SetUpDataGridViewColumns();
+                SetUpDataGridViewColumns();
+            }
         }
 
         private void SetUpDataGridViewColumns()
         {
-            if(employeesDataGridView.CurrentCell != null)
+            if (employeesDataGridView.CurrentCell != null)
             {
                 employeesDataGridView.CurrentCell.Selected = false;
             }
-            
+
             employeesDataGridView.Columns["Id"].Width = 40;
             employeesDataGridView.Columns["Title"].Width = 50;
             employeesDataGridView.Columns["Name"].Width = 80;
@@ -130,8 +142,11 @@ namespace CompanyApp
             employeesDataGridView.Columns["PhoneNumber"].Width = 120;
             employeesDataGridView.Columns["Email"].Width = 140;
             employeesDataGridView.Columns["Position"].Width = 160;
+
             employeesDataGridView.Columns["Id"].Visible = false;
             employeesDataGridView.Columns["DepartmentId"].Visible = false;
+
+            employeesDataGridView.Select();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -148,11 +163,42 @@ namespace CompanyApp
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            var row = employeesDataGridView.SelectedRows[0];
-            var employeeId = (int) row.Cells["Id"].Value;
+            var selectedRow = employeesDataGridView.SelectedRows[0];
+            var employeeId = (int)selectedRow.Cells["Id"].Value;
 
             _database.DeleteEmployee(employeeId);
-            employeesDataGridView.Rows.Remove(row);       
+            employeesDataGridView.Rows.Remove(selectedRow);       
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            var selectedRow = employeesDataGridView.SelectedRows[0];
+            var employeeId = (int)selectedRow.Cells["Id"].Value;
+
+            EditEmployeeForm editEmployeeForm = new EditEmployeeForm(employeeId);
+            editEmployeeForm.FormClosing += new FormClosingEventHandler(ChildFormClosing);
+            editEmployeeForm.Show();
+        }
+
+        private void AddProjectButton_Click(object sender, EventArgs e)
+        {
+            AddProjectForm addProjectForm = new AddProjectForm();
+            addProjectForm.FormClosing += new FormClosingEventHandler(ChildFormClosing);
+            addProjectForm.Show();
+        }
+
+        private void AddDivisionButton_Click(object sender, EventArgs e)
+        {
+            AddDivisionForm addDivisionForm = new AddDivisionForm();
+            addDivisionForm.FormClosing += new FormClosingEventHandler(ChildFormClosing);
+            addDivisionForm.Show();
+        }
+
+        private void AddDepartmentButton_Click(object sender, EventArgs e)
+        {
+            AddDepartmentForm addDepartmentForm = new AddDepartmentForm();
+            addDepartmentForm.FormClosing += new FormClosingEventHandler(ChildFormClosing);
+            addDepartmentForm.Show();
         }
     }
 }

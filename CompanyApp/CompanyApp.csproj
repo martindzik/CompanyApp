@@ -46,11 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDepartmentForm.Designer.cs">
+      <DependentUpon>AddDepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDivisionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDivisionForm.Designer.cs">
+      <DependentUpon>AddDivisionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AddEmployeeForm.Designer.cs">
       <DependentUpon>AddEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddProjectForm.Designer.cs">
+      <DependentUpon>AddProjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CompanyForm.cs">
       <SubType>Form</SubType>
@@ -59,7 +77,11 @@
       <DependentUpon>CompanyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DbWrapper\Database.cs" />
+    <Compile Include="Dtos\CompanyDto.cs" />
     <Compile Include="Dtos\DepartmentDto.cs" />
+    <Compile Include="Dtos\DivisionDto.cs" />
+    <Compile Include="Dtos\EmployeeDto.cs" />
+    <Compile Include="Dtos\ProjectDto.cs" />
     <Compile Include="EditEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,8 +96,17 @@
     <Compile Include="Models\Project.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddDepartmentForm.resx">
+      <DependentUpon>AddDepartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDivisionForm.resx">
+      <DependentUpon>AddDivisionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddEmployeeForm.resx">
       <DependentUpon>AddEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddProjectForm.resx">
+      <DependentUpon>AddProjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CompanyForm.resx">
       <DependentUpon>CompanyForm.cs</DependentUpon>

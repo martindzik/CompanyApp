@@ -40,7 +40,20 @@
             this.addButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.addProjectButton = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.addDivisionButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.leaderLabel = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.addDepartmentButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.employeesDataGridView)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // companiesComboBox
@@ -129,7 +142,7 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(889, 98);
+            this.addButton.Location = new System.Drawing.Point(6, 19);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 9;
@@ -139,16 +152,17 @@
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(889, 128);
+            this.editButton.Location = new System.Drawing.Point(6, 49);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(75, 23);
             this.editButton.TabIndex = 10;
             this.editButton.Text = "Editovať";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(889, 158);
+            this.deleteButton.Location = new System.Drawing.Point(6, 79);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 11;
@@ -156,14 +170,107 @@
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.addButton);
+            this.groupBox1.Controls.Add(this.deleteButton);
+            this.groupBox1.Controls.Add(this.editButton);
+            this.groupBox1.Location = new System.Drawing.Point(889, 98);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(98, 120);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Zamestnanci";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.addProjectButton);
+            this.groupBox2.Location = new System.Drawing.Point(889, 292);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(98, 59);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Projekty";
+            // 
+            // addProjectButton
+            // 
+            this.addProjectButton.Location = new System.Drawing.Point(6, 19);
+            this.addProjectButton.Name = "addProjectButton";
+            this.addProjectButton.Size = new System.Drawing.Size(75, 23);
+            this.addProjectButton.TabIndex = 0;
+            this.addProjectButton.Text = "Pridať";
+            this.addProjectButton.UseVisualStyleBackColor = true;
+            this.addProjectButton.Click += new System.EventHandler(this.AddProjectButton_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.addDivisionButton);
+            this.groupBox3.Location = new System.Drawing.Point(889, 357);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(98, 61);
+            this.groupBox3.TabIndex = 14;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Divízie";
+            // 
+            // addDivisionButton
+            // 
+            this.addDivisionButton.Location = new System.Drawing.Point(6, 19);
+            this.addDivisionButton.Name = "addDivisionButton";
+            this.addDivisionButton.Size = new System.Drawing.Size(75, 23);
+            this.addDivisionButton.TabIndex = 0;
+            this.addDivisionButton.Text = "Pridať";
+            this.addDivisionButton.UseVisualStyleBackColor = true;
+            this.addDivisionButton.Click += new System.EventHandler(this.AddDivisionButton_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Vedúci:";
+            // 
+            // leaderLabel
+            // 
+            this.leaderLabel.AutoSize = true;
+            this.leaderLabel.Location = new System.Drawing.Point(63, 67);
+            this.leaderLabel.Name = "leaderLabel";
+            this.leaderLabel.Size = new System.Drawing.Size(35, 13);
+            this.leaderLabel.TabIndex = 16;
+            this.leaderLabel.Text = "label6";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.addDepartmentButton);
+            this.groupBox4.Location = new System.Drawing.Point(889, 224);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(98, 61);
+            this.groupBox4.TabIndex = 17;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Oddelenia";
+            // 
+            // addDepartmentButton
+            // 
+            this.addDepartmentButton.Location = new System.Drawing.Point(6, 19);
+            this.addDepartmentButton.Name = "addDepartmentButton";
+            this.addDepartmentButton.Size = new System.Drawing.Size(75, 23);
+            this.addDepartmentButton.TabIndex = 0;
+            this.addDepartmentButton.Text = "Pridať";
+            this.addDepartmentButton.UseVisualStyleBackColor = true;
+            this.addDepartmentButton.Click += new System.EventHandler(this.AddDepartmentButton_Click);
+            // 
             // CompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(976, 450);
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.editButton);
-            this.Controls.Add(this.addButton);
+            this.ClientSize = new System.Drawing.Size(995, 450);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.leaderLabel);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.employeesDataGridView);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -177,6 +284,10 @@
             this.Text = "CompanyApp";
             this.Shown += new System.EventHandler(this.CompanyForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.employeesDataGridView)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,6 +307,15 @@
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button addProjectButton;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button addDivisionButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label leaderLabel;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button addDepartmentButton;
     }
 }
 

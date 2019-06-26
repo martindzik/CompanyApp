@@ -32,9 +32,9 @@ namespace CompanyApp.DbWrapper
                     string name = "";
                     int directorId = 0;
 
-                    Int32.TryParse(reader["Id"].ToString(), out id);
-                    name = reader["Name"].ToString();
-                    Int32.TryParse(reader["DirectorId"].ToString(), out directorId);
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out id);
+                    name = reader["Name"].ToString().Trim();
+                    Int32.TryParse(reader["DirectorId"].ToString().Trim(), out directorId);
 
                     var company = new Company(id, name, directorId);
 
@@ -60,10 +60,10 @@ namespace CompanyApp.DbWrapper
 
                 while (reader.Read())
                 { 
-                    Int32.TryParse(reader["Id"].ToString(), out int id);
-                    var name = reader["Name"].ToString();
-                    Int32.TryParse(reader["CompanyId"].ToString(), out int companyId);
-                    Int32.TryParse(reader["ManagerId"].ToString(), out int managerId);
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
+                    Int32.TryParse(reader["CompanyId"].ToString().Trim(), out int companyId);
+                    Int32.TryParse(reader["ManagerId"].ToString().Trim(), out int managerId);
 
                     var division = new Division(id, name, companyId, managerId);
 
@@ -90,10 +90,10 @@ namespace CompanyApp.DbWrapper
 
                 while(reader.Read())
                 {
-                    Int32.TryParse(reader["Id"].ToString(), out int id);
-                    var name = reader["Name"].ToString();
-                    Int32.TryParse(reader["DivisionId"].ToString(), out int divId);
-                    Int32.TryParse(reader["LeaderId"].ToString(), out int leaderId);
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
+                    Int32.TryParse(reader["DivisionId"].ToString().Trim(), out int divId);
+                    Int32.TryParse(reader["LeaderId"].ToString().Trim(), out int leaderId);
 
                     var project = new Project(id, name, divId, leaderId);
 
@@ -119,10 +119,10 @@ namespace CompanyApp.DbWrapper
 
                 while(reader.Read())
                 {
-                    Int32.TryParse(reader["Id"].ToString(), out int id);
-                    var name = reader["Name"].ToString();
-                    Int32.TryParse(reader["ProjectId"].ToString(), out int projId);
-                    Int32.TryParse(reader["LeaderId"].ToString(), out int leaderId);
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
+                    Int32.TryParse(reader["ProjectId"].ToString().Trim(), out int projId);
+                    Int32.TryParse(reader["LeaderId"].ToString().Trim(), out int leaderId);
 
                     var department = new Department(id, name, projId, leaderId);
 
@@ -178,6 +178,10 @@ namespace CompanyApp.DbWrapper
                     "WHERE c.Id = @CompanyId";
                 choice = 4;
             }
+            else
+            {
+                return null;
+            }
 
             using(var connection = new SqlConnection(ConnectionString))
             {
@@ -205,14 +209,14 @@ namespace CompanyApp.DbWrapper
 
                 while(reader.Read())
                 {
-                    Int32.TryParse(reader["Id"].ToString(), out int id);
-                    var title = reader["Title"].ToString();
-                    var name = reader["Name"].ToString();
-                    var surname = reader["Surname"].ToString();
-                    var phoneNumber = reader["PhoneNumber"].ToString();
-                    var email = reader["Email"].ToString();
-                    var position = reader["Position"].ToString();
-                    Int32.TryParse(reader["DepartmentId"].ToString(), out int departmendId);
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var title = reader["Title"].ToString().Trim();
+                    var name = reader["Name"].ToString().Trim();
+                    var surname = reader["Surname"].ToString().Trim();
+                    var phoneNumber = reader["PhoneNumber"].ToString().Trim();
+                    var email = reader["Email"].ToString().Trim();
+                    var position = reader["Position"].ToString().Trim();
+                    Int32.TryParse(reader["DepartmentId"].ToString().Trim(), out int departmendId);
 
                     var employee = new Employee(id, title, name, surname, phoneNumber, email, position, departmendId);
 
@@ -246,6 +250,93 @@ namespace CompanyApp.DbWrapper
             }
         }
 
+        public void EditEmpoyee(Employee employee)
+        {
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("UPDATE Employees SET " +
+                    "Title = @Title, " +
+                    "Name = @Name, " +
+                    "Surname = @Surname, " +
+                    "PhoneNumber = @PhoneNumber, " +
+                    "Email = @Email, " +
+                    "Position = @Position, " +
+                    "DepartmentId = @DepartmentId " +
+                    "WHERE Id = @Id",
+                    connection
+                    );
+
+                command.Parameters.AddWithValue("@Title", employee.Title);
+                command.Parameters.AddWithValue("@Name", employee.Name);
+                command.Parameters.AddWithValue("@Surname", employee.Surname);
+                command.Parameters.AddWithValue("@PhoneNumber", employee.PhoneNumber);
+                command.Parameters.AddWithValue("@Email", employee.Email);
+                command.Parameters.AddWithValue("@Position", employee.Position);
+                command.Parameters.AddWithValue("@DepartmentId", employee.DepartmentId);
+                command.Parameters.AddWithValue("@Id", employee.Id);
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddProject(Project project)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand(
+                    "INSERT INTO Projects " + 
+                    "VALUES (@Name, @DivisionId, @LeaderId)",
+                    connection
+                    );
+
+                command.Parameters.AddWithValue("@Name", project.Name);
+                command.Parameters.AddWithValue("@DivisionId", project.DivisionId);
+                command.Parameters.AddWithValue("@LeaderId", project.LeaderId);
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddDivision(Division division)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand(
+                    "INSERT INTO Divisions " +
+                    "VALUES (@Name, @CompanyId, @ManagerId)",
+                    connection
+                    );
+
+                command.Parameters.AddWithValue("@Name", division.Name);
+                command.Parameters.AddWithValue("@CompanyId", division.CompanyId);
+                command.Parameters.AddWithValue("@ManagerId", division.ManagerId);
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddDepartment(Department department)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand(
+                    "INSERT INTO Departments " +
+                    "VALUES (@Name, @ProjectId, @LeaderId)",
+                    connection
+                    );
+
+                command.Parameters.AddWithValue("@Name", department.Name);
+                command.Parameters.AddWithValue("@ProjectId", department.ProjectId);
+                command.Parameters.AddWithValue("@LeaderId", department.LeaderId);
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         public IEnumerable<DepartmentDto> GetAllDepartments()
         {
             var departmentDtos = new List<DepartmentDto>();
@@ -260,8 +351,8 @@ namespace CompanyApp.DbWrapper
 
                 while (reader.Read())
                 {
-                    Int32.TryParse(reader["Id"].ToString(), out int id);
-                    var name = reader["Name"].ToString();
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
 
                     var department = new DepartmentDto(id, name);
 
@@ -270,6 +361,111 @@ namespace CompanyApp.DbWrapper
             }
 
             return departmentDtos;
+        }
+
+        public IEnumerable<DivisionDto> GetAllDivisions()
+        {
+            var divisionDtos = new List<DivisionDto>();
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("SELECT Id, Name FROM Divisions", connection);
+
+                command.Connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
+
+                    var division = new DivisionDto(id, name);
+
+                    divisionDtos.Add(division);
+                }
+            }
+
+            return divisionDtos;
+        }
+
+        public IEnumerable<EmployeeDto> GetAllEmployees()
+        {
+            var employeeDtos = new List<EmployeeDto>();
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("SELECT Id, Name, Surname FROM Employees", connection);
+
+                command.Connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
+                    var surname = reader["Surname"].ToString().Trim();
+
+                    var employee = new EmployeeDto(id, name, surname);
+
+                    employeeDtos.Add(employee);
+                }
+            }
+
+            return employeeDtos;
+        }
+
+        public IEnumerable<CompanyDto> GetAllCompanies()
+        {
+            var companyDtos = new List<CompanyDto>();
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("SELECT Id, Name FROM Companies", connection);
+
+                command.Connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
+
+                    var company = new CompanyDto(id, name);
+
+                    companyDtos.Add(company);
+                }
+            }
+
+            return companyDtos;
+        }
+
+        public IEnumerable<ProjectDto> GetAllProjects()
+        {
+            var projectDtos = new List<ProjectDto>();
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("SELECT Id, Name FROM Projects", connection);
+
+                command.Connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var name = reader["Name"].ToString().Trim();
+
+                    var project = new ProjectDto(id, name);
+
+                    projectDtos.Add(project);
+                }
+            }
+
+            return projectDtos;
         }
 
         public void DeleteEmployee(int id)
@@ -281,6 +477,33 @@ namespace CompanyApp.DbWrapper
 
                 command.Connection.Open();
                 command.ExecuteNonQuery();
+            }
+        }
+
+        public Employee GetEmployee(int id)
+        {
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                var command = new SqlCommand("SELECT * FROM Employees WHERE id = @Id", connection);
+                command.Parameters.AddWithValue("@Id", id);
+
+                command.Connection.Open();
+                var reader = command.ExecuteReader();
+
+                reader.Read();
+                
+                var employeeId = (int)reader["Id"];
+                var title = reader["Title"].ToString().Trim();
+                var name = reader["Name"].ToString().Trim();
+                var surname = reader["Surname"].ToString().Trim();
+                var phoneNumber = reader["PhoneNumber"].ToString().Trim();
+                var email = reader["Email"].ToString().Trim();
+                var position = reader["Position"].ToString().Trim();
+                var departmentId = (int)reader["DepartmentId"];
+
+                var employee = new Employee(employeeId, title, name, surname, phoneNumber, email, position, departmentId);
+
+                return employee;
             }
         }
     }

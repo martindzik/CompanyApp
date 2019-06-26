@@ -27,25 +27,32 @@ namespace CompanyApp
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            var employee = new Employee(
-                1,
-                titleTextBox.Text,
-                nameTextBox.Text,
-                surnameTextBox.Text,
-                phoneTextBox.Text,
-                emailTextBox.Text,
-                positionTextBox.Text,
-                Convert.ToInt32(departmentComboBox.SelectedValue)
-            );
+            if(nameTextBox.Text.Length != 0 
+                && surnameTextBox.Text.Length != 0 
+                && phoneTextBox.Text.Length != 0
+                && emailTextBox.Text.Length != 0
+                && positionTextBox.Text.Length != 0 
+                && departmentComboBox.SelectedValue != null)
+            {
+                var employee = new Employee(
+                    1,
+                    titleTextBox.Text,
+                    nameTextBox.Text,
+                    surnameTextBox.Text,
+                    phoneTextBox.Text,
+                    emailTextBox.Text,
+                    positionTextBox.Text,
+                    Convert.ToInt32(departmentComboBox.SelectedValue)
+                );
 
-            _database.AddEmployee(employee);
+                _database.AddEmployee(employee);
 
-            this.Close();
-        }
-
-        private void DepartmentComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Vyplňte všetky polia");
+            }
         }
 
         private void AddEmployeeForm_Load(object sender, EventArgs e)

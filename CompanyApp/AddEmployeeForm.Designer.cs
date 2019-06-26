@@ -178,7 +178,6 @@
             this.departmentComboBox.Name = "departmentComboBox";
             this.departmentComboBox.Size = new System.Drawing.Size(148, 21);
             this.departmentComboBox.TabIndex = 16;
-            this.departmentComboBox.SelectedIndexChanged += new System.EventHandler(this.DepartmentComboBox_SelectedIndexChanged);
             // 
             // AddEmployeeForm
             // 
