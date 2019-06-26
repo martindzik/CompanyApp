@@ -135,7 +135,6 @@ namespace CompanyApp
                 employeesDataGridView.CurrentCell.Selected = false;
             }
 
-            employeesDataGridView.Columns["Id"].Width = 40;
             employeesDataGridView.Columns["Title"].Width = 50;
             employeesDataGridView.Columns["Name"].Width = 80;
             employeesDataGridView.Columns["Surname"].Width = 80;
@@ -145,8 +144,6 @@ namespace CompanyApp
 
             employeesDataGridView.Columns["Id"].Visible = false;
             employeesDataGridView.Columns["DepartmentId"].Visible = false;
-
-            employeesDataGridView.Select();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
