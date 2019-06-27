@@ -1,6 +1,6 @@
-#Company App
+# Company App
 
-##Instructions
+## Instructions
 1. Download repository
 2. Open Microsoft SQL Server Management Studio
 3. Click on File - Open - File ...
