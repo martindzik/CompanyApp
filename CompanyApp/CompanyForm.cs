@@ -45,7 +45,7 @@ namespace CompanyApp
 
             var leader = _database.GetLeader(id);
 
-            leaderLabel.Text = leader.Name;
+            leaderLabel.Text = leader.FullName;
 
             ShowEmployees();
         }
@@ -70,7 +70,7 @@ namespace CompanyApp
 
             var leader = _database.GetLeader(id);
 
-            leaderLabel.Text = leader.Name;
+            leaderLabel.Text = leader.FullName;
 
             ShowEmployees();
         }
@@ -96,7 +96,7 @@ namespace CompanyApp
 
             var leader = _database.GetLeader(id);
 
-            leaderLabel.Text = leader.Name;
+            leaderLabel.Text = leader.FullName;
 
             ShowEmployees();
         }
@@ -120,7 +120,7 @@ namespace CompanyApp
 
             var leader = _database.GetLeader(id);
 
-            leaderLabel.Text = leader.Name;
+            leaderLabel.Text = leader.FullName;
 
             ShowEmployees();
         }
@@ -133,6 +133,11 @@ namespace CompanyApp
             if (department == null) return;
 
             // veduci oddelenia
+            int id = department.LeaderId;
+
+            var leader = _database.GetLeader(id);
+
+            leaderLabel.Text = leader.FullName;
 
             ShowEmployees();
         }
@@ -192,21 +197,36 @@ namespace CompanyApp
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            var selectedRow = employeesDataGridView.SelectedRows[0];
-            var employeeId = (int)selectedRow.Cells["Id"].Value;
+            if(employeesDataGridView.SelectedRows.Count > 0)
+            {
+                var selectedRow = employeesDataGridView.SelectedRows[0];
+                var employeeId = (int)selectedRow.Cells["Id"].Value;
 
-            _database.DeleteEmployee(employeeId);
-            employeesDataGridView.Rows.Remove(selectedRow);       
+                _database.DeleteEmployee(employeeId);
+                employeesDataGridView.Rows.Remove(selectedRow);
+            }
+            else
+            {
+                MessageBox.Show("Označte zamestnanca");
+            }
+                 
         }
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            var selectedRow = employeesDataGridView.SelectedRows[0];
-            var employeeId = (int)selectedRow.Cells["Id"].Value;
+            if(employeesDataGridView.SelectedRows.Count > 0)
+            {
+                var selectedRow = employeesDataGridView.SelectedRows[0];
+                var employeeId = (int)selectedRow.Cells["Id"].Value;
 
-            EditEmployeeForm editEmployeeForm = new EditEmployeeForm(employeeId);
-            editEmployeeForm.FormClosing += new FormClosingEventHandler(ChildFormClosing);
-            editEmployeeForm.Show();
+                EditEmployeeForm editEmployeeForm = new EditEmployeeForm(employeeId);
+                editEmployeeForm.FormClosing += new FormClosingEventHandler(ChildFormClosing);
+                editEmployeeForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Označte zamestnanca");
+            }          
         }
 
         private void AddProjectButton_Click(object sender, EventArgs e)

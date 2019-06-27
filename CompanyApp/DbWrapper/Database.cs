@@ -389,13 +389,13 @@ namespace CompanyApp.DbWrapper
             return divisionDtos;
         }
 
-        public IEnumerable<EmployeeDto> GetAllEmployees()
+        public IEnumerable<Leader> GetAllLeaders()
         {
-            var employeeDtos = new List<EmployeeDto>();
+            var leaders = new List<Leader>();
 
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var command = new SqlCommand("SELECT Id, Name, Surname FROM Employees", connection);
+                var command = new SqlCommand("SELECT * FROM Leaders", connection);
 
                 command.Connection.Open();
 
@@ -404,16 +404,17 @@ namespace CompanyApp.DbWrapper
                 while(reader.Read())
                 {
                     Int32.TryParse(reader["Id"].ToString().Trim(), out int id);
+                    var title = reader["Title"].ToString().Trim();
                     var name = reader["Name"].ToString().Trim();
                     var surname = reader["Surname"].ToString().Trim();
 
-                    var employee = new EmployeeDto(id, name, surname);
+                    var leader = new Leader(id, title, name, surname);
 
-                    employeeDtos.Add(employee);
+                    leaders.Add(leader);
                 }
             }
 
-            return employeeDtos;
+            return leaders;
         }
 
         public IEnumerable<CompanyDto> GetAllCompanies()
@@ -468,15 +469,16 @@ namespace CompanyApp.DbWrapper
             return projectDtos;
         }
 
-        public EmployeeDto GetLeader(int leaderId)
+        public Leader GetLeader(int leaderId)
         {
             int id = 0;
+            string title = "";
             string name = "";
             string surname = "";
 
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var command = new SqlCommand("SELECT Id, Name, Surname FROM Employees WHERE Id = @Id", connection);
+                var command = new SqlCommand("SELECT * FROM Leaders WHERE Id = @Id", connection);
                 command.Parameters.AddWithValue("@Id", leaderId);
 
                 command.Connection.Open();
@@ -486,12 +488,13 @@ namespace CompanyApp.DbWrapper
                 while(reader.Read())
                 {
                     Int32.TryParse(reader["Id"].ToString().Trim(), out id);
+                    title = reader["Title"].ToString().Trim();
                     name = reader["Name"].ToString().Trim();
                     surname = reader["Surname"].ToString().Trim();
                 }
             }
 
-            return new EmployeeDto(id, name, surname);
+            return new Leader(id, title, name, surname);
         }
 
         public void DeleteEmployee(int id)

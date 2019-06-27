@@ -30,10 +30,10 @@ namespace CompanyApp
             companyComboBox.ValueMember = "Id";
             companyComboBox.SelectedIndex = -1;
 
-            var employeeDtos = _database.GetAllEmployees();
+            var employeeDtos = _database.GetAllLeaders();
 
             leaderComboBox.DataSource = employeeDtos;
-            leaderComboBox.DisplayMember = "Name";
+            leaderComboBox.DisplayMember = "FullName";
             leaderComboBox.ValueMember = "Id";
             leaderComboBox.SelectedIndex = -1;
         }
